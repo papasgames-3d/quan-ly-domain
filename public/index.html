@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Expiry Tracker - Quản lý thời hạn Domain</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-globe"></i> Domain Expiry Tracker</h1>
+            <p>Quản lý và theo dõi thời hạn domain của bạn</p>
+        </header>
+
+        <div class="dashboard">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-domains">0</h3>
+                        <p>Tổng Domain</p>
+                    </div>
+                </div>
+                <div class="stat-card expiring">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="expiring-domains">0</h3>
+                        <p>Sắp hết hạn (30 ngày)</p>
+                    </div>
+                </div>
+                <div class="stat-card active">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="active-domains">0</h3>
+                        <p>Hoạt động</p>
+                    </div>
+                </div>
+                <div class="stat-card error">
+                    <div class="stat-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="error-domains">0</h3>
+                        <p>Lỗi kiểm tra</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="server-time-info" id="server-time-info" style="text-align: center; margin: 10px 0; padding: 8px; background: #f8f9fa; border-radius: 4px; font-size: 14px; color: #666;">
+                <i class="fas fa-clock"></i> Thời gian server: <span id="server-time-display">Đang tải...</span>
+            </div>
+
+            <div class="controls">
+                <div class="add-domain-form">
+                    <input type="text" id="domain-input" placeholder="Nhập domain mới (ví dụ: example.com)">
+                    <select id="domain-type-select">
+                        <option value="my_domain">Domain của tôi</option>
+                        <option value="competitor_domain">Domain đối thủ</option>
+                    </select>
+                    <input type="text" id="notes-input" placeholder="Ghi chú (tùy chọn)">
+                    <button id="add-domain-btn">
+                        <i class="fas fa-plus"></i> Thêm Domain
+                    </button>
+                </div>
+                <div class="action-buttons">
+                    <button id="refresh-all-btn" class="btn-secondary">
+                        <i class="fas fa-sync-alt"></i> Cập nhật tất cả
+                    </button>
+                    <button id="export-btn" class="btn-secondary">
+                        <i class="fas fa-download"></i> Xuất CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="domains-container">
+            <div class="section-header">
+                <h2>Danh sách Domain</h2>
+                <div class="filter-controls">
+                    <select id="domain-type-filter">
+                        <option value="all">Tất cả loại domain</option>
+                        <option value="my_domain">Domain của tôi</option>
+                        <option value="competitor_domain">Domain đối thủ</option>
+                    </select>
+                    <select id="status-filter">
+                        <option value="all">Tất cả trạng thái</option>
+                        <option value="active">Hoạt động</option>
+                        <option value="expiring">Sắp hết hạn</option>
+                        <option value="error">Lỗi</option>
+                    </select>
+                    <select id="sort-filter">
+                        <option value="expiry_date">Sắp xếp theo hạn</option>
+                        <option value="domain">Sắp xếp theo tên</option>
+                        <option value="status">Sắp xếp theo trạng thái</option>
+                        <option value="created_at">Mới nhất</option>
+                    </select>
+                    <input type="text" id="search-input" placeholder="Tìm kiếm domain...">
+                </div>
+            </div>
+            
+            <div class="domains-grid" id="domains-grid">
+                <div class="loading" id="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Đang tải dữ liệu...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for domain details -->
+    <div id="domain-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Chi tiết Domain</h2>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <span id="notification-message"></span>
+        <button id="notification-close">&times;</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
