@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>API Test Page</h1>
+    <button onclick="testDomains()">Test /api/domains</button>
+    <button onclick="testSystemInfo()">Test /api/system-info</button>
+    <div id="result"></div>
+
+    <script>
+        async function testDomains() {
+            try {
+                const response = await fetch('/api/domains');
+                const data = await response.json();
+                document.getElementById('result').innerHTML = 
+                    '<h3>Domains API:</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('result').innerHTML = 
+                    '<h3>Domains API Error:</h3><pre>' + error.message + '</pre>';
+            }
+        }
+
+        async function testSystemInfo() {
+            try {
+                const response = await fetch('/api/system-info');
+                const data = await response.json();
+                document.getElementById('result').innerHTML = 
+                    '<h3>System Info API:</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('result').innerHTML = 
+                    '<h3>System Info API Error:</h3><pre>' + error.message + '</pre>';
+            }
+        }
+    </script>
+</body>
+</html> 
