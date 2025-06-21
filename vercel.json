@@ -2,17 +2,30 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",
-      "use": "@vercel/node"
+      "src": "public/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
+      "src": "/api/domains",
+      "dest": "/api/domains.js"
+    },
+    {
+      "src": "/api/system-info",
+      "dest": "/api/system-info.js"
+    },
+    {
       "src": "/(.*)",
-      "dest": "server.js"
+      "dest": "/public/$1"
     }
   ],
-  "env": {
-    "NODE_ENV": "production"
+  "functions": {
+    "api/domains.js": {
+      "maxDuration": 30
+    },
+    "api/system-info.js": {
+      "maxDuration": 10
+    }
   }
 } 

@@ -81,11 +81,13 @@ Trong Vercel Dashboard:
 ```
 domain-ex/
 ├── api/
-│   └── index.js          # Serverless function
+│   ├── domains.js        # API endpoint cho domains
+│   └── system-info.js    # API endpoint cho system info
 ├── public/               # Static files
 │   ├── index.html
 │   ├── script.js
 │   └── style.css
+├── index.html           # Root HTML file
 ├── vercel.json          # Vercel config
 ├── package.json         # Dependencies
 └── README.md
@@ -95,10 +97,11 @@ domain-ex/
 
 ### Lỗi thường gặp:
 
-1. **Build failed**: Kiểm tra `package.json` và dependencies
-2. **Function timeout**: WHOIS lookup quá lâu, cần optimize
-3. **Database error**: Cần chuyển sang cloud database
-4. **Static files không load**: Kiểm tra đường dẫn trong `vercel.json`
+1. **404 API errors**: Kiểm tra routing trong `vercel.json` và tên file API
+2. **Function timeout**: WHOIS lookup quá lâu, cần optimize (max 30s)
+3. **Database error**: Cần chuyển sang cloud database cho persistence
+4. **Static files không load**: Kiểm tra đường dẫn CSS/JS trong HTML
+5. **CORS errors**: API endpoints đã có CORS headers
 
 ### Debug:
 
